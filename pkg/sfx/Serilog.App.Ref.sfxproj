@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Microsoft.DotNet.Arcade.Sdk" />
+  <Sdk Name="Microsoft.DotNet.SharedFramework.Sdk" />
+
+  <PropertyGroup>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <IsShipping Condition="'$(RuntimeIdentifier)' != 'any'">true</IsShipping>
+    <GenerateInstallers Condition="'$(RuntimeIdentifier)' != 'any'">true</GenerateInstallers>
+    <IncludeSymbols>false</IncludeSymbols>
+    <ProductBrandPrefix>Serilog</ProductBrandPrefix>
+    <InstallerName>serilog-targeting-pack</InstallerName>
+    <Company>Serilog</Company>
+    <Authors>Serilog</Authors>
+    <CopyrightMicrosoft>Copyright (c) 2022</CopyrightMicrosoft>
+    <Copyright>$(CopyrightMicrosoft)</Copyright>
+  </PropertyGroup>
+
+</Project>

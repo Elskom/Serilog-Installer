@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Microsoft.DotNet.Arcade.Sdk" />
+  <Sdk Name="Microsoft.DotNet.SharedFramework.Sdk" />
+
+  <PropertyGroup>
+    <IsShipping Condition="'$(RuntimeIdentifier)' != 'any'">true</IsShipping>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <PermitDllAndExeFilesLackingFileVersion>true</PermitDllAndExeFilesLackingFileVersion>
+    <PublishReadyToRunUseCrossgen2>false</PublishReadyToRunUseCrossgen2>
+    <PublishReadyToRun Condition="'$(RuntimeIdentifier)' != 'any'">true</PublishReadyToRun>
+    <PublishReadyToRunUseCrossgen2 Condition="'$(RuntimeIdentifier)' != 'any'">true</PublishReadyToRunUseCrossgen2>
+    <!-- Generate Installers when RuntimeIdentifier is not any. -->
+    <GenerateInstallers Condition="'$(RuntimeIdentifier)' != 'any'">true</GenerateInstallers>
+    <IncludeSymbols>false</IncludeSymbols>
+    <!-- We need the symbols from crossgen2. -->
+    <IncludeSymbols Condition="'$(RuntimeIdentifier)' != 'any'">true</IncludeSymbols>
+    <ProductBrandPrefix>Serilog</ProductBrandPrefix>
+    <InstallerName>serilog-runtime</InstallerName>
+    <Company>Serilog</Company>
+    <Authors>Serilog</Authors>
+    <CopyrightMicrosoft>Copyright (c) 2022</CopyrightMicrosoft>
+    <Copyright>$(CopyrightMicrosoft)</Copyright>
+  </PropertyGroup>
+
+</Project>

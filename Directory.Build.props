@@ -1,0 +1,44 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <!-- We need to mark the sfxproj files as packaging projects to avoid changing their output directories. -->
+    <IsPackageProject Condition="'$(MSBuildProjectExtension)' == '.sfxproj' OR '$(MSBuildProjectExtension)' == '.bundleproj' OR '$(MSBuildProjectName)' == 'installers.csproj'">true</IsPackageProject>
+    <IsPackageProject Condition="'$(MSBuildProjectExtension)' != '.sfxproj' AND '$(MSBuildProjectExtension)' != '.bundleproj'">false</IsPackageProject>
+    <!-- Mark the nuget packages as serviceable. -->
+    <Serviceable>true</Serviceable>
+    <!-- suppress message when using the .NET Preview SDKs. -->
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+    <!--
+        Sorry, we have to disable the warning for adding the reference assemblies to the package without adding them to the nuspec.
+        This is because of the fact that if we use the methods to add them that does add them to the nuspec, then the folder paths
+        would be added automatically to the project which is not intended at all or even wanted. As such for now the only way to
+        fix that is to disable package analysis for now.
+    -->
+    <NoPackageAnalysis Condition="'$(PublishReferenceAssemblies)' == 'true'">true</NoPackageAnalysis>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)artifacts\packages\$(Configuration)\Shipping\</PackageOutputPath>
+    <Company>Serilog</Company>
+    <Authors>Serilog</Authors>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Elskom/Serilog-Installer/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Elskom/Serilog-Installer/</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>Copyright (c) 2022</Copyright>
+    <!-- <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild> -->
+    <!-- <IsTagBuild Condition="$(GITHUB_REF.StartsWith('refs/tags/'))">true</IsTagBuild> -->
+    <!-- <VersionSuffix Condition="'$(IsTagBuild)' == '' AND '$(GITHUB_ACTIONS)' == ''">-dev</VersionSuffix> -->
+    <!-- <VersionSuffix Condition="'$(IsTagBuild)' == '' AND '$(GITHUB_ACTIONS)' == 'true'">-preview.$(GITHUB_RUN_NUMBER).$(BUILD_RERUN_COUNT)</VersionSuffix> -->
+    <BaseIntermediateOutputPath Condition="'$(IsPackageProject)' == 'false' AND '$(ProduceOnlyReferenceAssembly)' == ''">$(MSBuildThisFileDirectory)obj\runtime\$(MSBuildProjectName)\$(Configuration)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath Condition="'$(IsPackageProject)' == 'false' AND '$(ProduceOnlyReferenceAssembly)' == ''">$(MSBuildThisFileDirectory)obj\runtime\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath Condition="'$(IsPackageProject)' == 'false' AND '$(ProduceOnlyReferenceAssembly)' != ''">$(MSBuildThisFileDirectory)obj\ref\$(MSBuildProjectName)\$(Configuration)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath Condition="'$(IsPackageProject)' == 'false' AND '$(ProduceOnlyReferenceAssembly)' != ''">$(MSBuildThisFileDirectory)obj\ref\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath Condition="'$(IsPackageProject)' == 'true'">$(MSBuildThisFileDirectory)obj\pkg\$(MSBuildProjectName)\$(Configuration)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath Condition="'$(IsPackageProject)' == 'true'">$(MSBuildThisFileDirectory)obj\pkg\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
+    <OutputPath Condition="'$(IsPackageProject)' == 'false' AND '$(ProduceOnlyReferenceAssembly)' == ''">$(MSBuildThisFileDirectory)bin\$(Configuration)\runtime\</OutputPath>
+    <OutputPath Condition="'$(IsPackageProject)' == 'false' AND '$(ProduceOnlyReferenceAssembly)' != ''">$(MSBuildThisFileDirectory)bin\$(Configuration)\ref\</OutputPath>
+    <OutputPath Condition="'$(IsPackageProject)' == 'true' AND !$(MSBuildProjectName.Contains('.Ref'))">$(MSBuildThisFileDirectory)bin\$(Configuration)\pkg\runtime\</OutputPath>
+    <OutputPath Condition="'$(IsPackageProject)' == 'true' AND $(MSBuildProjectName.Contains('.Ref'))">$(MSBuildThisFileDirectory)bin\$(Configuration)\pkg\ref\</OutputPath>
+    <_TargetFrameworkVersionWithoutV Condition="'$(IsPackageProject)' == 'true'">6.0</_TargetFrameworkVersionWithoutV>
+  </PropertyGroup>
+
+</Project>

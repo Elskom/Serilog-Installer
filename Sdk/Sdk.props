@@ -1,0 +1,20 @@
+<Project>
+
+  <PropertyGroup>
+    <UsingSerilogNetSdk>true</UsingSerilogNetSdk>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <KnownFrameworkReference Include="Serilog.App"
+                             TargetFramework="net6.0"
+                             RuntimeFrameworkName="Serilog.App"
+                             DefaultRuntimeFrameworkVersion="5.0.0"
+                             LatestRuntimeFrameworkVersion="5.0.0"
+                             TargetingPackName="Serilog.App.Ref"
+                             TargetingPackVersion="5.0.0"
+                             RuntimePackNamePatterns="Serilog.App.Runtime.**RID**"
+                             RuntimePackRuntimeIdentifiers="win-x86;win-x64;win-arm64;linux-x64;linux-arm;linux-arm64;osx-x64;osx-arm64"
+                             IsTrimmable="true" />
+  </ItemGroup>
+
+</Project>

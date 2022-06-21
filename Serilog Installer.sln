@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32611.2
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Sdk", "Serilog.Sdk\Serilog.Sdk.csproj", "{EA8B0CDF-15AB-48CB-AF6A-FE9181F78A15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pkg", "pkg", "{CE114743-C988-4645-93D5-8E628F474FEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "installer", "installer", "{038510BD-9724-4C3E-9209-9CD68D5C0050}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "installers", "pkg\installer\installers.csproj", "{1A6A103C-5F5A-4160-BE31-851D084FFA71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA8B0CDF-15AB-48CB-AF6A-FE9181F78A15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA8B0CDF-15AB-48CB-AF6A-FE9181F78A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA8B0CDF-15AB-48CB-AF6A-FE9181F78A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA8B0CDF-15AB-48CB-AF6A-FE9181F78A15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A6A103C-5F5A-4160-BE31-851D084FFA71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A6A103C-5F5A-4160-BE31-851D084FFA71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A6A103C-5F5A-4160-BE31-851D084FFA71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A6A103C-5F5A-4160-BE31-851D084FFA71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{038510BD-9724-4C3E-9209-9CD68D5C0050} = {CE114743-C988-4645-93D5-8E628F474FEC}
+		{1A6A103C-5F5A-4160-BE31-851D084FFA71} = {038510BD-9724-4C3E-9209-9CD68D5C0050}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {23921B89-3A8E-4264-A53F-3A063F40DA21}
+	EndGlobalSection
+EndGlobal

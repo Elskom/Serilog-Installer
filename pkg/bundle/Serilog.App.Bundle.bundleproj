@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Microsoft.Build.NoTargets" />
+  <Sdk Name="Microsoft.DotNet.Arcade.Sdk" />
+
+  <PropertyGroup>
+    <DisableSourceLink>true</DisableSourceLink>
+    <AssemblyVersion />
+    <!--
+      Name, used to generate the bundle upgrade code. Must stay the same to allow bundles in a given
+      product band to upgrade in place.
+    -->
+    <BundleInstallerUpgradeCodeSeed>Serilog Shared Framework Bundle Installer</BundleInstallerUpgradeCodeSeed>
+    <BundleThemeDirectory>$(MSBuildProjectDirectory)</BundleThemeDirectory>
+    <ArchiveName>serilog-shared-framework</ArchiveName>
+    <InstallerName>serilog-shared-framework</InstallerName>
+    <BundleNameSuffix>Shared Framework</BundleNameSuffix>
+    <ProductBrandPrefix>Serilog</ProductBrandPrefix>
+    <!-- MacOS installers only!!! -->
+    <MacOSBundleTemplate Condition="$(RuntimeIdentifier.StartsWith('osx-'))">$(MSBuildProjectDirectory)/shared-framework-distribution-template-arm64.xml</MacOSBundleTemplate>
+    <MacOSBundleIdentifierName Condition="$(RuntimeIdentifier.StartsWith('osx-'))">com.microsoft.dotnet.Microsoft.EntityFrameworkCore.App.$(ProductVersion).osx.arm64</MacOSBundleIdentifierName>
+    <MacOSBundleResourcesPath Condition="$(RuntimeIdentifier.StartsWith('osx-'))">osx_resources</MacOSBundleResourcesPath>
+    <Company>Serilog</Company>
+    <Authors>Serilog</Authors>
+    <CopyrightMicrosoft>Copyright (c) 2022</CopyrightMicrosoft>
+    <Copyright>$(CopyrightMicrosoft)</Copyright>
+    <Manufacturer>Serilog</Manufacturer>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.DotNet.Build.Tasks.Installers" IsImplicitlyDefined="true" Version="*-*" Condition="$([MSBuild]::IsOSPlatform('Windows')) OR $([MSBuild]::IsOSPlatform('OSX'))">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.DotNet.Build.Tasks.Archives" IsImplicitlyDefined="true" Version="*-*"> <!-- Condition="$([MSBuild]::IsOSPlatform('Linux'))" > -->
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <BundleComponentReference Include="../sfx/Serilog.App.Runtime.sfxproj">
+      <AdditionalProperties>RuntimeIdentifier=$(RuntimeIdentifier)</AdditionalProperties>
+    </BundleComponentReference>
+    <BundleComponentReference Include="../sfx/Serilog.App.Ref.sfxproj">
+      <AdditionalProperties>RuntimeIdentifier=$(RuntimeIdentifier)</AdditionalProperties>
+    </BundleComponentReference>
+  </ItemGroup>
+
+  <Target Name="PublishToDisk">
+    <Error Condition="'$(OutputPath)' == ''" Text="Publishing to disk requires the OutputPath to be set to the root of the path to write to." />
+    <MSBuild Projects="@(BundleComponentReference)" Targets="PublishToDisk" Properties="OutputPath=$(OutputPath)" />
+  </Target>
+
+  <Target Name="PublishSymbolsToDisk">
+    <Error Condition="'$(SymbolsOutputPath)' == ''" Text="Publishing to disk requires the SymbolsOutputPath to be set to the root of the path to write to." />
+    <MSBuild Projects="@(BundleComponentReference)" Targets="PublishSymbolsToDisk" Properties="SymbolsOutputPath=$(SymbolsOutputPath)" />
+  </Target>
+
+</Project>

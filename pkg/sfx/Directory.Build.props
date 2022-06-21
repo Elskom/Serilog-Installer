@@ -1,0 +1,28 @@
+<Project>
+
+  <Import Project="../../Directory.Build.props" />
+
+  <PropertyGroup>
+    <DisableSourceLink>true</DisableSourceLink>
+    <AssemblyVersion />
+    <SharedFrameworkFriendlyName>Serilog</SharedFrameworkFriendlyName>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <SkipValidatePackage>true</SkipValidatePackage>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <SharedFrameworkName>Serilog.App</SharedFrameworkName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="!$(MSBuildProjectName.Contains('.Ref'))">
+    <OverridePackageId>$(SharedFrameworkName).Runtime.$(RuntimeIdentifier)</OverridePackageId>
+    <PlatformPackageType>RuntimePack</PlatformPackageType>
+    <ArchiveName>serilog-runtime</ArchiveName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectName.Contains('.Ref'))">
+    <NoWarn>$(NoWarn);NU5118</NoWarn>
+    <PlatformPackageType>TargetingPack</PlatformPackageType>
+    <RuntimePackProjectPath>$(SharedFrameworkName).Runtime.sfxproj</RuntimePackProjectPath>
+    <ArchiveName>serilog-targeting-pack</ArchiveName>
+  </PropertyGroup>
+
+</Project>
