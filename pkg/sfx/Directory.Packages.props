@@ -22,7 +22,6 @@
     <PackageReference Include="Serilog.Expressions" Version="3.4.0" />
     <PackageReference Include="Serilog.Sinks.EventLog" Version="3.1.0" />
     <!-- SourceLink -->
-    <PackageReference Remove="Microsoft.SourceLink.GitHub" />
     <PackageReference Remove="Microsoft.SourceLink.AzureRepos.Git" />
     <PackageReference Include="Microsoft.DotNet.Build.Tasks.Archives" IsImplicitlyDefined="true" Version="*-*" Condition="$(RuntimeIdentifier.StartsWith('linux-')) AND $([MSBuild]::IsOSPlatform('Linux'))">
       <PrivateAssets>all</PrivateAssets>
