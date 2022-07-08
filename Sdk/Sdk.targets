@@ -2,14 +2,14 @@
 
   <ItemGroup>
     <!--
-        EFCore depends on DependencyInjection which is a part of the AspNetCore framework.
+        Serilog depends on Extensions.Hosting, etc which is a part of the AspNetCore framework.
 
         Note: This also checks if the AspNetCore framework was already imported by it's own sdk.
     -->
     <FrameworkReference
             Include="Microsoft.AspNetCore.App"
             IsImplicitlyDefined="true"
-            Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND ('$(UsingMicrosoftNETSdkWeb)' != 'true' OR '$(UsingEFCoreNetSdk)' != 'true')" />
+            Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND !@(FrameworkReference->AnyHaveMetadataValue('Identity', 'Microsoft.AspNetCore.App'))" />
     <FrameworkReference
             Include="Serilog.App"
             IsImplicitlyDefined="true"
@@ -18,6 +18,7 @@
 
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(ImplicitUsings)' == 'enable'">
     <Using Include="Serilog" />
+    <Using Include="Serilog.Debugging" />
     <Using Include="Serilog.Events" />
     <Using Include="Serilog.Filters" />
   </ItemGroup>
