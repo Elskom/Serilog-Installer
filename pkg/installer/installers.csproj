@@ -7,6 +7,10 @@
     <RestoreRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('Windows'))">any;win-x86;win-x64;win-arm64</RestoreRuntimeIdentifiers>
     <RestoreRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('Linux'))">any;linux-x64;linux-arm;linux-arm64</RestoreRuntimeIdentifiers>
     <RestoreRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('OSX'))">any;osx-x64;osx-arm64</RestoreRuntimeIdentifiers>
+    <!-- We need to package platform specific rids as well. -->
+    <PackageRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('Windows'))">win-x86;win-x64;win-arm64</PackageRuntimeIdentifiers>
+    <PackageRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('Linux'))">linux-x64;linux-arm;linux-arm64</PackageRuntimeIdentifiers>
+    <PackageRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('OSX'))">osx-x64;osx-arm64</PackageRuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,13 +24,14 @@
     <BundleRestoreReference Include="../sfx/Serilog.App.Ref.sfxproj">
       <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifiers=$(RestoreRuntimeIdentifiers)</AdditionalProperties>
     </BundleRestoreReference>
-    <!-- For building the nuget packages for the Any RID.-->
-    <BundleRIDReference Include="../sfx/Serilog.App.Runtime.sfxproj">
+    <!-- For building the nuget packages for the Any RID. -->
+    <BundleRIDReference Include="../sfx/Serilog.App.Ref.sfxproj">
       <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=any</AdditionalProperties>
       <Targets>Pack</Targets>
     </BundleRIDReference>
-    <BundleRIDReference Include="../sfx/Serilog.App.Ref.sfxproj">
-      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=any</AdditionalProperties>
+    <!-- For building the nuget packages for platform specific RIDs. -->
+    <BundleRIDReference Include="../sfx/Serilog.App.Runtime.sfxproj">
+      <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifiers=$(PackageRuntimeIdentifiers)</AdditionalProperties>
       <Targets>Pack</Targets>
     </BundleRIDReference>
   </ItemGroup>
@@ -35,15 +40,15 @@
     <!-- Use these when OS is Windows. -->
     <BundleRIDReference Include="../bundle/Serilog.App.Bundle.bundleproj">
       <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=win-x86</AdditionalProperties>
-      <Targets>Pack;GenerateInstallers</Targets>
+      <Targets>GenerateInstallers</Targets>
     </BundleRIDReference>
     <BundleRIDReference Include="../bundle/Serilog.App.Bundle.bundleproj">
       <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=win-x64</AdditionalProperties>
-      <Targets>Pack;GenerateInstallers</Targets>
+      <Targets>GenerateInstallers</Targets>
     </BundleRIDReference>
     <BundleRIDReference Include="../bundle/Serilog.App.Bundle.bundleproj">
       <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=win-arm64</AdditionalProperties>
-      <Targets>Pack;GenerateInstallers</Targets>
+      <Targets>GenerateInstallers</Targets>
     </BundleRIDReference>
   </ItemGroup>
 
@@ -64,11 +69,11 @@
     <!-- Use these when OS is MacOS. -->
     <BundleRIDReference Include="../bundle/Serilog.App.Bundle.bundleproj">
       <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=osx-x64</AdditionalProperties>
-      <Targets>Pack;GenerateInstallers</Targets>
+      <Targets>GenerateInstallers</Targets>
     </BundleRIDReference>
     <BundleRIDReference Include="../bundle/Serilog.App.Bundle.bundleproj">
       <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=osx-arm64</AdditionalProperties>
-      <Targets>Pack;GenerateInstallers</Targets>
+      <Targets>GenerateInstallers</Targets>
     </BundleRIDReference>
   </ItemGroup>
 

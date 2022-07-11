@@ -16,7 +16,7 @@
             Condition="'$(DisableImplicitFrameworkReferences)' != 'true'" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(ImplicitUsings)' == 'enable'">
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND ('$(ImplicitUsings)' == 'enable' OR '$(ImplicitUsings)' == 'true')">
     <Using Include="Serilog" />
     <Using Include="Serilog.Debugging" />
     <Using Include="Serilog.Events" />
