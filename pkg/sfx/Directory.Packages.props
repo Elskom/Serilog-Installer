@@ -1,9 +1,10 @@
 <Project>
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.NETCore.App" />
     <!-- Try to prevent assemblies that exist in the ASP.NET Core Framework from being included here. -->
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <!-- Work arround https://github.com/dotnet/runtime/issues/71027 by adding NETCore.App last. -->
+    <FrameworkReference Include="Microsoft.NETCore.App" />
     <!-- The actual Serilog nuget packages. -->
     <PackageReference Include="Serilog" Version="2.11.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
