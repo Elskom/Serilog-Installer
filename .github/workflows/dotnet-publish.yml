@@ -1,0 +1,62 @@
+name: .NET (build & publish release)
+
+on:
+  push:
+    tags:
+    - '*'
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@main
+    - name: Install latest .NET 6 SDK.
+      uses: Elskom/setup-latest-dotnet@main
+      with:
+        VERSION_MAJOR: 6
+        VERSION_BAND: 4xx
+
+    - name: Restore, Build, and Pack
+      uses: Elskom/build-dotnet@main
+      with:
+        PUSH: false
+    - name: Clean up temp installer files.
+      run: |
+        del artifacts/packages/Release/Shipping/*.wixpdb
+        del artifacts/packages/Release/Shipping/*-runtime-*.*
+        del artifacts/packages/Release/Shipping/*-targeting-pack-*.*
+      shell: pwsh
+    - name: Upload artifacts
+      uses: actions/upload-artifact@main
+      with:
+        name: Shipping
+        path: artifacts/packages/Release/Shipping/*
+  create_release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: write
+    steps:
+    # To ensure that the current version being pushed does not get pruned we prune first.
+    - name: Prune all older versions.
+      uses: smartsquaregmbh/delete-old-packages@master
+      with:
+        keep: 0
+        names: |
+            Serilog.Sdk
+    - name: Download artifacts
+      uses: actions/download-artifact@main
+      with:
+        name: Shipping
+        path: artifacts/packages/Release/Shipping/
+    - name: Push nuget Packages to GitHub Packages.
+      # we must skip the symbol packages.
+      run: dotnet nuget push **/*.nupkg -s https://nuget.pkg.github.com/${{ github.repository_owner }} -k ${{ secrets.GITHUB_TOKEN }} --skip-duplicate --no-symbols
+    - uses: ncipollo/release-action@main
+      with:
+        artifacts: "artifacts/packages/Release/Shipping/*.exe,artifacts/packages/Release/Shipping/*.*pkg,artifacts/packages/Release/Shipping/*.zip,artifacts/packages/Release/Shipping/*.tar.gz"
+        token: ${{ secrets.GITHUB_TOKEN }}
