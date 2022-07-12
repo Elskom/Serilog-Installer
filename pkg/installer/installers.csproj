@@ -8,9 +8,9 @@
     <RestoreRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('Linux'))">any;linux-x64;linux-arm;linux-arm64</RestoreRuntimeIdentifiers>
     <RestoreRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('OSX'))">any;osx-x64;osx-arm64</RestoreRuntimeIdentifiers>
     <!-- We need to package platform specific rids as well. -->
-    <PackageRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('Windows'))">win-x86;win-x64;win-arm64</PackageRuntimeIdentifiers>
+    <!-- <PackageRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('Windows'))">win-x86;win-x64;win-arm64</PackageRuntimeIdentifiers>
     <PackageRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('Linux'))">linux-x64;linux-arm;linux-arm64</PackageRuntimeIdentifiers>
-    <PackageRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('OSX'))">osx-x64;osx-arm64</PackageRuntimeIdentifiers>
+    <PackageRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('OSX'))">osx-x64;osx-arm64</PackageRuntimeIdentifiers> -->
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,15 +25,15 @@
       <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifiers=$(RestoreRuntimeIdentifiers)</AdditionalProperties>
     </BundleRestoreReference>
     <!-- For building the nuget packages for the Any RID. -->
-    <BundleRIDReference Include="../sfx/Serilog.App.Ref.sfxproj">
+    <!-- <BundleRIDReference Include="../sfx/Serilog.App.Ref.sfxproj">
       <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifier=any</AdditionalProperties>
       <Targets>Pack</Targets>
-    </BundleRIDReference>
+    </BundleRIDReference> -->
     <!-- For building the nuget packages for platform specific RIDs. -->
-    <BundleRIDReference Include="../sfx/Serilog.App.Runtime.sfxproj">
+    <!-- <BundleRIDReference Include="../sfx/Serilog.App.Runtime.sfxproj">
       <AdditionalProperties>Configuration=$(Configuration);RuntimeIdentifiers=$(PackageRuntimeIdentifiers)</AdditionalProperties>
       <Targets>Pack</Targets>
-    </BundleRIDReference>
+    </BundleRIDReference> -->
   </ItemGroup>
 
   <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
