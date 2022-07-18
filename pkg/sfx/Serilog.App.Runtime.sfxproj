@@ -1,5 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project>
 
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <Sdk Name="Microsoft.DotNet.Arcade.Sdk" />
   <Sdk Name="Microsoft.DotNet.SharedFramework.Sdk" />
 
@@ -22,5 +23,33 @@
     <CopyrightMicrosoft>Copyright (c) 2022</CopyrightMicrosoft>
     <Copyright>$(CopyrightMicrosoft)</Copyright>
   </PropertyGroup>
+
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+
+  <!-- override the version specified in Microsoft.NET.Sdk.targets -->
+  <!-- Work around https://github.com/dotnet/runtime/issues/71027 by adding NETCore.App last in the runtimeconfig file. -->
+  <!--
+      There is a problem with the automatically generated runtimeconfig.json
+      files where it is possible that it can cause the apphost to look for hostpolicy
+      in the wrong framework directory.
+
+      As such we must provide our own runtimeconfig file that gets copied to the
+      output directory that is manually maintained.
+  -->
+  <!-- Caution: Dangerous Hack. -->
+  <Target
+    Name="GenerateBuildRuntimeConfigurationFiles"
+    Condition="'$(GenerateRuntimeConfigurationFiles)' == 'true'"
+    BeforeTargets="CopyFilesToOutputDirectory">
+    <Copy
+      SourceFiles="$(MSBuildThisFileDirectory)runtimeconfig.json"
+      SkipUnchangedFiles="true"
+      DestinationFiles="$(ProjectRuntimeConfigFilePath)" />
+    <!--
+        For some reason copy creates 2 files instead of just the
+        copied file with the new name above.
+    -->
+    <Delete Files="$(IntermediateOutputPath)runtimeconfig.json" />
+  </Target>
 
 </Project>
