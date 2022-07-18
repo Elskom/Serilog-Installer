@@ -4,7 +4,7 @@
     <!-- This repo version -->
     <MajorVersion>6</MajorVersion>
     <MinorVersion>0</MinorVersion>
-    <PatchVersion>6</PatchVersion>
+    <PatchVersion>7</PatchVersion>
     <VersionPrefix>$(MajorVersion).$(MinorVersion).$(PatchVersion)</VersionPrefix>
     <!-- <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild> -->
     <!-- <DotNetFinalVersionKind Condition="$(GITHUB_REF.StartsWith('refs/tags/'))">release</DotNetFinalVersionKind> -->
