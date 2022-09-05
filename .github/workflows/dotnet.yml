@@ -7,10 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
-    - name: Install latest .NET 6 SDK.
+    - name: Install latest .NET SDK.
       uses: Elskom/setup-latest-dotnet@main
-      with:
-        VERSION_MAJOR: 6
-        VERSION_BAND: 4xx
     - name: Restore, Build, and Pack
       uses: Elskom/build-dotnet@main
