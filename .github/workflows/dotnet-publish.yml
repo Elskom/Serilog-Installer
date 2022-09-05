@@ -43,7 +43,7 @@ jobs:
     steps:
     # To ensure that the current version being pushed does not get pruned we prune first.
     - name: Prune all older versions.
-      uses: smartsquaregmbh/delete-old-packages@master
+      uses: smartsquaregmbh/delete-old-packages@main
       with:
         keep: 0
         names: |
