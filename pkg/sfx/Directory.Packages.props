@@ -1,32 +1,34 @@
 <Project>
 
+  <Import Project="../../Directory.Packages.props" />
+
   <ItemGroup>
     <FrameworkReference Include="Microsoft.NETCore.App" />
     <!-- Try to prevent assemblies that exist in the ASP.NET Core Framework from being included here. -->
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <!-- The actual Serilog nuget packages. -->
-    <PackageReference Include="Serilog" Version="2.11.0" />
-    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
-    <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
-    <PackageReference Include="Serilog.Extensions.Hosting" Version="5.0.0" />
-    <PackageReference Include="Serilog.Sinks.PeriodicBatching" Version="2.3.1" />
-    <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
-    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
-    <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
-    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
-    <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2" />
-    <PackageReference Include="Serilog.Sinks.Trace" Version="3.0.0" />
-    <PackageReference Include="Serilog.Expressions" Version="3.4.0" />
-    <PackageReference Include="Serilog.Sinks.EventLog" Version="3.1.0" />
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Extensions.Logging" />
+    <PackageReference Include="Serilog.Formatting.Compact" />
+    <PackageReference Include="Serilog.Settings.Configuration" />
+    <PackageReference Include="Serilog.Extensions.Hosting" />
+    <PackageReference Include="Serilog.Sinks.PeriodicBatching" />
+    <PackageReference Include="Serilog.Sinks.Debug" />
+    <PackageReference Include="Serilog.Enrichers.Environment" />
+    <PackageReference Include="Serilog.Sinks.Async" />
+    <PackageReference Include="Serilog.Enrichers.Thread" />
+    <PackageReference Include="Serilog.Enrichers.Process" />
+    <PackageReference Include="Serilog.Sinks.Trace" />
+    <PackageReference Include="Serilog.Expressions" />
+    <PackageReference Include="Serilog.Sinks.EventLog" />
     <!-- SourceLink -->
     <PackageReference Remove="Microsoft.SourceLink.AzureRepos.Git" />
-    <PackageReference Include="Microsoft.DotNet.Build.Tasks.Archives" IsImplicitlyDefined="true" Version="*-*" Condition="$(RuntimeIdentifier.StartsWith('linux-')) AND $([MSBuild]::IsOSPlatform('Linux'))">
+    <PackageReference Include="Microsoft.DotNet.Build.Tasks.Archives" Condition="$(RuntimeIdentifier.StartsWith('linux-')) AND $([MSBuild]::IsOSPlatform('Linux'))">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.DotNet.Build.Tasks.Installers" IsImplicitlyDefined="true" Version="7.0.0-beta.22322.3" Condition="$([MSBuild]::IsOSPlatform('Windows')) OR $([MSBuild]::IsOSPlatform('OSX'))">
+    <PackageReference Include="Microsoft.DotNet.Build.Tasks.Installers" Condition="$([MSBuild]::IsOSPlatform('Windows')) OR $([MSBuild]::IsOSPlatform('OSX'))">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
