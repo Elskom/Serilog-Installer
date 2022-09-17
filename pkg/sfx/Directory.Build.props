@@ -9,6 +9,8 @@
     <SkipValidatePackage>true</SkipValidatePackage>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
     <SharedFrameworkName>Serilog.App</SharedFrameworkName>
+    <!-- Remove warnings about using central package management with multiple nuget sources. -->
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="!$(MSBuildProjectName.Contains('.Ref'))">
