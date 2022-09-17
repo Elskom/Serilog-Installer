@@ -1,6 +1,7 @@
 {
   "runtimeOptions": {
     "tfm": "net6.0",
+    "rollForward": "Major",
     "frameworks": [
       {
         "name": "Microsoft.AspNetCore.App",
