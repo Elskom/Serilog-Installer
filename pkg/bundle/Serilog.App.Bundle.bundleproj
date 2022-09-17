@@ -25,6 +25,8 @@
     <CopyrightMicrosoft>Copyright (c) 2022</CopyrightMicrosoft>
     <Copyright>$(CopyrightMicrosoft)</Copyright>
     <Manufacturer>Serilog</Manufacturer>
+    <!-- Remove warnings about using central package management with multiple nuget sources. -->
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

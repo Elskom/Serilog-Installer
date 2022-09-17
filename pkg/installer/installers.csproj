@@ -11,6 +11,8 @@
     <!-- <PackageRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('Windows'))">win-x86;win-x64;win-arm64</PackageRuntimeIdentifiers>
     <PackageRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('Linux'))">linux-x64;linux-arm;linux-arm64</PackageRuntimeIdentifiers>
     <PackageRuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('OSX'))">osx-x64;osx-arm64</PackageRuntimeIdentifiers> -->
+    <!-- Remove warnings about using central package management with multiple nuget sources. -->
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
