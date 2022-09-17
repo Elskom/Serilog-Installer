@@ -11,5 +11,8 @@ jobs:
     - uses: actions/checkout@main
     - name: Install latest .NET SDK.
       uses: Elskom/setup-latest-dotnet@main
+      with:
+        SDK_VERSION: '7.0.100-rc.1.22431.12'
+        RUNTIME_VERSIONS: ''
     - name: Restore, Build, and Pack
       uses: Elskom/build-dotnet@main
