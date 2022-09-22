@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageVersion Include="Microsoft.DotNet.Build.Tasks.Installers" Version="7.0.0-beta.22464.4" />
+    <PackageVersion Include="Microsoft.DotNet.Build.Tasks.Installers" Version="7.0.0-beta.22471.1" />
     <PackageVersion Include="Microsoft.DotNet.Build.Tasks.Archives" Version="7.0.0-beta.22464.4" />
     <PackageVersion Include="Serilog" Version="2.12.0" />
     <PackageVersion Include="Serilog.Sinks.File" Version="5.0.0" />
