@@ -1,7 +1,10 @@
 <Project>
 
-  <ItemGroup>
+  <PropertyGroup>
     <SerilogFrameworkVersion Condition="'$(SerilogFrameworkVersion)' == ''">7.0.0</SerilogFrameworkVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
     <!-- .NET 6 -->
     <KnownFrameworkReference Include="Serilog.App"
                              TargetFramework="net6.0"
