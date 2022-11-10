@@ -1,14 +1,15 @@
 <Project>
 
   <ItemGroup>
+    <SerilogFrameworkVersion Condition="'$(SerilogFrameworkVersion)' == ''">7.0.0</SerilogFrameworkVersion>
     <!-- .NET 6 -->
     <KnownFrameworkReference Include="Serilog.App"
                              TargetFramework="net6.0"
                              RuntimeFrameworkName="Serilog.App"
-                             DefaultRuntimeFrameworkVersion="6.0.8"
-                             LatestRuntimeFrameworkVersion="6.0.8"
+                             DefaultRuntimeFrameworkVersion="$(SerilogFrameworkVersion)"
+                             LatestRuntimeFrameworkVersion="$(SerilogFrameworkVersion)"
                              TargetingPackName="Serilog.App.Ref"
-                             TargetingPackVersion="6.0.8"
+                             TargetingPackVersion="$(SerilogFrameworkVersion)"
                              RuntimePackNamePatterns="Serilog.App.Runtime.**RID**"
                              RuntimePackRuntimeIdentifiers="win-x86;win-x64;win-arm64;linux-x64;linux-arm;linux-arm64;osx-x64;osx-arm64"
                              IsTrimmable="true" />
@@ -16,10 +17,10 @@
     <KnownFrameworkReference Include="Serilog.App"
                              TargetFramework="net7.0"
                              RuntimeFrameworkName="Serilog.App"
-                             DefaultRuntimeFrameworkVersion="6.0.8"
-                             LatestRuntimeFrameworkVersion="6.0.8"
+                             DefaultRuntimeFrameworkVersion="$(SerilogFrameworkVersion)"
+                             LatestRuntimeFrameworkVersion="$(SerilogFrameworkVersion)"
                              TargetingPackName="Serilog.App.Ref"
-                             TargetingPackVersion="6.0.8"
+                             TargetingPackVersion="$(SerilogFrameworkVersion)"
                              RuntimePackNamePatterns="Serilog.App.Runtime.**RID**"
                              RuntimePackRuntimeIdentifiers="win-x86;win-x64;win-arm64;linux-x64;linux-arm;linux-arm64;osx-x64;osx-arm64"
                              IsTrimmable="true" />
